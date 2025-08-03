@@ -1,0 +1,420 @@
+html {
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+* {
+    box-sizing: border-box;
+    /* border: 1px solid rgb(255, 0, 0); */
+}
+
+body {
+    size: 100%;
+    /* height: 90vh;
+    width: 90vw; */
+    /* background-color: rgb(255, 255, 255); */
+    background-image:
+        linear-gradient(45deg, rgba(197, 197, 197, 0.1)80%, rgba(255, 0, 0, 0.5)80%),
+        linear-gradient(85deg, rgba(197, 197, 197, 0.1)80%, rgba(0, 255, 255, 0.5)80%),
+        linear-gradient(125deg, rgba(197, 197, 197, 0.1)80%, rgba(255, 0, 0, 0.5)80%),
+        linear-gradient(165deg, rgba(197, 197, 197, 0.1)80%, rgba(0, 255, 255, 0.5)80%),
+        linear-gradient(205deg, rgba(197, 197, 197, 0.1)80%, rgba(255, 0, 0, 0.5)80%),
+        linear-gradient(245deg, rgba(197, 197, 197, 0.1)80%, rgba(0, 255, 255, 0.5)80%),
+        linear-gradient(315deg, rgba(197, 197, 197, 0.1)80%, rgba(255, 0, 0, 0.5)80%),
+        linear-gradient(275deg, rgba(197, 197, 197, 0.1)80%, rgba(0, 255, 255, 0.5)80%),
+        linear-gradient(235deg, rgba(197, 197, 197, 0.1)80%, rgba(255, 0, 0, 0.5)80%),
+        linear-gradient(195deg, rgba(197, 197, 197, 0.1)80%, rgba(0, 255, 255, 0.5)80%),
+        linear-gradient(155deg, rgba(197, 197, 197, 0.1)80%, rgba(255, 0, 0, 0.5)80%),
+        linear-gradient(115deg, rgba(197, 197, 197, 0.1)80%, rgba(0, 255, 255, 0.5)80%);
+    margin: 0;
+    font-family: "Lexend Exa";
+}
+
+img {
+    max-height: 250px;
+    min-width: 0;
+    min-height: 0;
+    width: auto;
+    /* border: 1px solid white; */
+    flex: 1;
+}
+
+.vignette {
+    position: relative;
+    max-height: 250px;
+}
+
+.vignette::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 1), transparent 5%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 1), transparent 5%),
+        linear-gradient(to left, rgba(0, 0, 0, 1), transparent 5%),
+        linear-gradient(to right, rgba(0, 0, 0, 1), transparent 5%);
+    pointer-events: none;
+}
+
+
+h1 {
+    font-size: 1.7rem;
+}
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+.header-span {
+    display: flex;
+    flex-direction: row;
+}
+
+.header-card a {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header-card {
+    background-color: rgb(69, 109, 109);
+    font-size: .8rem;
+    font-variant: small-caps;
+    text-decoration: none;
+    height: 3.5rem;
+    width: 10rem;
+    padding: 10px;
+    margin: 0 1.5rem 0 1.5rem;
+    background-image:
+        linear-gradient(315deg, rgba(69, 109, 109, 1)95%, rgba(255, 0, 0, 1)95%);
+}
+
+#staff-grid {
+    /* size: 100%; */
+    /* height: 800px; */
+    /* height: 100vh; */
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 2fr 2fr 2fr 2fr 1fr;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px;
+    justify-items: stretch;
+}
+
+#header-main {
+    font-size: 1.7rem;
+    font-weight: 600;
+    word-spacing: .5em;
+    letter-spacing: 0.15em;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* box-sizing: border-box; */
+    height: 9rem;
+    width: 100vw;
+    /* background-color: rgba(0, 0, 0, 0.411); */
+    background-image:
+        linear-gradient(85deg, rgba(68, 62, 151, 0.11)33%, rgba(0, 7, 38, 0.76)33%),
+        linear-gradient(185deg, rgb(64, 62, 90)33%, rgb(7, 0, 28)33%);
+}
+
+.row {
+    background-color: rgb(255, 255, 255);
+    /* padding: 20px; */
+}
+
+#top-row {
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 15px 40px;
+    position: relative;
+}
+
+#top-row::after {
+    content: "";
+    border-bottom: 1px solid rgb(177, 177, 177);
+    border-left: 6px solid rgb(194, 194, 194);
+    width: 90%;
+    height: 90%;
+    /* padding: 20px 20px 0 20px; */
+    /* margin-left: -10px; */
+    position: absolute;
+}
+
+#staff-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+
+#staff-container hr {
+    flex: 0;
+    margin: 0 1em 0 1em;
+    min-width: 0;
+    min-height: 0;
+    max-height: 96%;
+    color: rgb(223, 223, 223);
+}
+
+#staff-intro {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    margin-left: 30px;
+    padding-bottom: 5px;
+}
+
+#staff-intro h2 {
+    flex: 1;
+    font-size: clamp(0.1em, 2vw, 2em);
+}
+
+
+#staff-intro p {
+    flex: 1;
+    font-size: clamp(0.1em, 2vw, 1em);
+}
+
+
+#image-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    padding: 0 100px 5px 30px;
+    column-gap: 50px;
+    flex: 2;
+    min-width: 0;
+    min-height: 0;
+}
+
+#lab-workers {
+    max-width: 250px;
+    min-width: 0;
+    min-height: 0;
+    /* padding: 20px; */
+    flex: 1;
+    filter: sepia(50%) saturate(60%);
+}
+
+#stealing-vase {
+    max-width: 250px;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+    filter: sepia(100%) saturate(100%);
+    flex: 1;
+    /* padding: 20px; */
+}
+
+#trash {
+    max-width: 250px;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+    flex: 1;
+    filter: sepia(100%) saturate(40%);
+    /* padding: 20px; */
+}
+
+.left-profile {
+    padding-right: 40px;
+    text-align: justify;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    column-gap: 100px;
+    max-height: 300px;
+    min-width: 0;
+    min-height: 0;
+}
+
+.left-profile .photo-container {
+    justify-content: left;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+}
+
+.right-profile {
+    padding-left: 40px;
+    text-align: justify;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    column-gap: 100px;
+    max-height: 300px;
+    min-width: 0;
+    min-height: 0;
+}
+
+.right-profile .photo-container {
+    justify-content: right;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+
+}
+
+.staff-bio {
+    flex: 2;
+    text-align: left;
+    padding: 20px 20px 20px 20px;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+}
+
+.staff-bio p {
+    font-size: clamp(0.1em, 2vw, 1em);
+    /* line-height: 2em; */
+    min-width: 0;
+    min-height: 0;
+    flex: 1;
+    display: flex;
+}
+
+.staff-bio h2 {
+    font-size: clamp(0.1em, 2vw, 1.5em);
+    margin-bottom: 0;
+    min-width: 0;
+    min-height: 0;
+    flex: 1;
+}
+
+.staff-bio h3 {
+    font-size: clamp(0.1em, 3vw, 1.2em);
+    margin: 0 0 0 0;
+    min-width: 0;
+    min-height: 0;
+    flex: 1;
+}
+
+#Helmut {
+    max-width: 250px;
+    min-width: 0;
+    min-height: 0;
+    flex: 1;
+    height: auto;
+}
+
+#Calder {
+    max-width: 250px;
+    min-width: 0;
+    min-height: 0;
+    flex: 1;
+    height: auto;
+}
+
+#Sylvette {
+    max-width: 250px;
+    min-width: 0;
+    min-height: 0;
+    flex: 1;
+    height: auto;
+}
+
+.photo-container {
+    flex: 1;
+    justify-content: center;
+    display: flex;
+    background-color: black;
+    /* max-height: 100%; */
+    align-items: center;
+    padding: 20px;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+}
+
+#profile-1 {
+    grid-row: 2/3;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+}
+
+#profile-2 {
+    grid-row: 3/4;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+}
+
+#profile-3 {
+    grid-row: 4/5;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+}
+
+
+#footer-main {
+    line-height: 1.5rem;
+    font-family: "Lexend Exa";
+    font-size: 1.2rem;
+    color: rgb(44, 44, 44);
+    grid-column: 1/2;
+    text-align: center;
+    min-width: 0;
+    place-content: center;
+    /* margin: 0 30px 0 30px; */
+    padding: 20px;
+}
+
+.inset-border {
+    border-bottom: 1px solid rgb(177, 177, 177);
+    border-left: 6px solid rgb(194, 194, 194);
+    width: 100%;
+    height: 100%;
+    padding: 20px 20px 20px 20px;
+}
+
+@media (max-width: 1650px) {
+    .staff-bio p {
+        font-size: clamp(0.1em, 1vw, .8em);
+        /* line-height: 2em; */
+        min-width: 0;
+        min-height: 0;
+        flex: 1;
+        display: flex;
+        line-height: 1.75em;
+    }
+
+    .staff-bio h2 {
+        font-size: clamp(0.1em, 2vw, 1.4em);
+        margin-bottom: 0;
+        min-width: 0;
+        min-height: 0;
+        flex: 1;
+    }
+
+    .staff-bio h3 {
+        font-size: clamp(0.1em, 3vw, 1em);
+        margin: 0 0 0 0;
+        min-width: 0;
+        min-height: 0;
+        flex: 1;
+    }
+
+}
+
+@media (max-width: 1400px) {}

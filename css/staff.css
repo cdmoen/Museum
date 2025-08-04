@@ -58,7 +58,9 @@ img {
 
 
 h1 {
-    font-size: 1.7rem;
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
 }
 
 h2 {

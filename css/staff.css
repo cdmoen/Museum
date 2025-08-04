@@ -71,7 +71,7 @@ h3 {
     text-align: center;
 }
 
-.header-span {
+.header-cards {
     display: flex;
     flex-direction: row;
 }

@@ -47,7 +47,7 @@ h2 {
     margin: -.94rem 0 -2rem -1.5rem;
 }
 
-.header-span {
+.header-cards {
     display: flex;
     flex-direction: row;
 }

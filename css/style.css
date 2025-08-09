@@ -137,6 +137,10 @@ h2 {
     display: none;
 }
 
+#histories-display {
+    display: none;
+}
+
 #header-main {
     font-size: 1.7rem;
     font-weight: 600;

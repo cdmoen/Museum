@@ -63,10 +63,7 @@ h1 {
     margin: 0 0 1rem 0;
 }
 
-h2 {
-    text-align: center;
-}
-
+h2,
 h3 {
     text-align: center;
 }
@@ -101,9 +98,6 @@ h3 {
 }
 
 #staff-grid {
-    /* size: 100%; */
-    /* height: 800px; */
-    /* height: 100vh; */
     width: 100vw;
     display: grid;
     grid-template-rows: 2fr 2fr 2fr 2fr 1fr;
@@ -123,26 +117,26 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* box-sizing: border-box; */
     height: 9rem;
     width: 100vw;
-    /* background-color: rgba(0, 0, 0, 0.411); */
     background-image:
         linear-gradient(85deg, rgba(68, 62, 151, 0.11)33%, rgba(0, 7, 38, 0.76)33%),
         linear-gradient(185deg, rgb(64, 62, 90)33%, rgb(7, 0, 28)33%);
 }
 
 .row {
-    background-color: rgb(255, 255, 255);
-    /* padding: 20px; */
+    position: relative;
+    z-index: 0;
+    background-color: white
 }
 
+
 #top-row {
+    /* position: relative; */
     grid-row: 1/2;
     display: flex;
     flex-direction: column;
     padding: 10px 10px 15px 40px;
-    position: relative;
 }
 
 #top-row::after {
@@ -252,6 +246,7 @@ h3 {
     min-width: 0;
     min-height: 0;
     height: auto;
+
 }
 
 .right-profile {
@@ -273,7 +268,6 @@ h3 {
     min-width: 0;
     min-height: 0;
     height: auto;
-
 }
 
 .staff-bio {
@@ -310,22 +304,8 @@ h3 {
     flex: 1;
 }
 
-#Helmut {
-    max-width: 250px;
-    min-width: 0;
-    min-height: 0;
-    flex: 1;
-    height: auto;
-}
-
-#Calder {
-    max-width: 250px;
-    min-width: 0;
-    min-height: 0;
-    flex: 1;
-    height: auto;
-}
-
+#Helmut,
+#Calder,
 #Sylvette {
     max-width: 250px;
     min-width: 0;
@@ -335,23 +315,62 @@ h3 {
 }
 
 .photo-container {
+    position: relative;
     flex: 1;
     justify-content: center;
     display: flex;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.918);
     /* max-height: 100%; */
     align-items: center;
     padding: 20px;
     min-width: 0;
     min-height: 0;
     height: auto;
+    z-index: 1;
 }
+
+.photo-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/black-marble.png");
+    filter: opacity(.2);
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
 
 #profile-1 {
     grid-row: 2/3;
     min-width: 0;
     min-height: 0;
     height: auto;
+    background-color: white;
+}
+
+/* #profile-1::before,
+#profile-2::before,
+#profile-3::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/black-marble.png");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) invert(1) opacity(.1);
+    z-index: -1;
+} */
+
+.row::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/black-marble.png");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) invert(1) opacity(.1);
+    z-index: -1;
 }
 
 #profile-2 {
@@ -359,6 +378,7 @@ h3 {
     min-width: 0;
     min-height: 0;
     height: auto;
+    background-color: white;
 }
 
 #profile-3 {
@@ -366,6 +386,7 @@ h3 {
     min-width: 0;
     min-height: 0;
     height: auto;
+    background-color: white;
 }
 
 

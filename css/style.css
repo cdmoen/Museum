@@ -7,7 +7,7 @@ html {
 
 * {
     box-sizing: border-box;
-    /* border: 1px solid black; */
+    /* border: 1px solid red; */
 }
 
 body {
@@ -70,7 +70,7 @@ h2 {
     text-decoration: none;
     height: 3.5rem;
     width: 10rem;
-    padding: 10px;
+    /* padding: 10px; */
     margin: 0 1.5rem 0 1.5rem;
     background-image:
         linear-gradient(315deg, rgba(69, 109, 109, 1)95%, rgba(255, 0, 0, 1)95%);
@@ -81,37 +81,31 @@ h2 {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 10px 60px 10px 60px;
     background-color: #1f1a35f0;
+    gap: 30px;
 }
 
 
-
-.nav-card {
-    font-size: .8rem;
-    font-variant: small-caps;
+.navigation-row button {
+    max-width: 100rem;
+    max-height: 4rem;
     text-decoration: none;
-    /*! height: 3.5rem; */
-    width: 15rem;
-    padding: 5px;
-    margin: 0 1rem 0 1rem;
-    /*! background-image:
-        linear-gradient(315deg, rgb(232, 223, 204)95%, rgb(255, 0, 0)95%); */
-    border: 1px solid rgba(187, 187, 187, 0.32);
-    background-color: rgba(129, 147, 147, 0.39);
-    /*! border: ; */
-}
-
-.nav-card a {
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    color: #ffffffeb;
-    display: flex;
+    color: #ffffff;
+    background-color: #25233d;
     text-align: center;
+    letter-spacing: 0.3em;
     justify-content: center;
     flex-direction: column;
+    border: none;
+    font-size: .85rem;
+    font-variant: small-caps;
+    border: 1px solid white;
+    padding: 8px 60px 8px 60px;
+    cursor: pointer;
+
 }
+
 
 #grid {
     /* size: 100%; */
@@ -124,15 +118,23 @@ h2 {
     padding: 40px;
 }
 
-#collections-grid {
+.collections-grid {
     /* size: 100%; */
     /* height: 700px; */
     /* width: 90vw; */
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 3fr 2fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
     gap: 40px;
     padding: 40px;
+}
+
+#archeology-display {
+    /* display: none; */
+}
+
+#anthropology-display {
+    display: none;
 }
 
 #header-main {
@@ -156,8 +158,20 @@ h2 {
 
 .row {
     padding: 20px 80px 20px 20px;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 0.95);
     text-align: justify;
+    position: relative;
+}
+
+.row:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/black-marble.png");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) invert(1);
+    z-index: -1;
 }
 
 .inset-border {
@@ -182,6 +196,19 @@ h2 {
     align-items: center;
     display: flex;
     border-left: 6px solid rgb(238, 238, 238);
+    position: relative;
+    z-index: 0;
+}
+
+.mid-row-stripe::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/black-marble.png");
+    background-size: cover;
+    background-position: center;
+    filter: opacity(.2);
+    z-index: -1;
 }
 
 .mid-row-body {
@@ -204,6 +231,7 @@ h2 {
     display: grid;
     grid-template-rows: 25% 75%;
     padding: 0;
+
 }
 
 #mid-right {
@@ -229,4 +257,157 @@ h2 {
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.archeology-header,
+.anthropology-header,
+.histories-header {
+    font-variant: small-caps;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    margin-top: 10px;
+}
+
+.archeology-header::before,
+.anthropology-header::before,
+.histories-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/black-marble.png");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) invert(1);
+    z-index: -1;
+}
+
+.archeology-header::after,
+.anthropology-header::after,
+.histories-header::after {
+    height: 90%;
+    width: 98%;
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    border-left: 4px solid rgb(200, 200, 200);
+    border-bottom: 2px solid rgb(200, 200, 200);
+}
+
+.collection-row {
+    position: relative;
+    grid-column: 1/4;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    column-gap: 2rem;
+}
+
+.collection-row::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/black-marble.png");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) invert(1);
+    z-index: -1;
+}
+
+.collection-column1 {
+    position: relative;
+    height: 100%;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr;
+    background-image: url("../images/black-marble.png");
+    z-index: 0;
+}
+
+.column-1-row-1 {
+    grid-row: 1/2;
+    grid-column: 1/2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: rgba(34, 34, 34, 0.95);
+}
+
+.column-1-row-1 h2 {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.column-2-row-2 {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+}
+
+.collection-column1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* white overlay with 50% opacity */
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+
+.collection-column1 img {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    width: 350px;
+    height: 350px;
+
+}
+
+.collection-vignette {
+    position: relative;
+    max-height: 350px;
+}
+
+.collection-vignette::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 1), transparent 2%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 1), transparent 2%),
+        linear-gradient(to left, rgba(0, 0, 0, 1), transparent 2%),
+        linear-gradient(to right, rgba(0, 0, 0, 1), transparent 2%);
+    pointer-events: none;
+}
+
+.collection-column2 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-left: 2px solid gray;
+}
+
+.collection-column3 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }

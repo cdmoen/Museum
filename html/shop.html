@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="Author" content="Colin Moen">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Chicle&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Fascinate&family=Freehand&family=Goblin+One&family=Grand+Hotel&family=Italiana&family=Lexend+Exa:wght@100..900&family=Limelight&family=Roboto:ital,wght@0,100..900;1,100..900&family=Spicy+Rice&family=Sulphur+Point:wght@300;400;700&family=Trade+Winds&family=Ultra&family=Wendy+One&family=Yellowtail&display=swap"
+        rel="stylesheet">
+    <title>MMC | Souvenir Shop</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <header class="shop-header">
+        <h1>Souvenir Shop</h1>
+        <div class="header-cards">
+            <div class="header-card"><a href="../index.html" id="home">Home</a></div>
+            <div class="header-card"><a href="staff.html" id="staff">Staff</a></div>
+            <div class="header-card"><a href="collections.html" id="collections">Collections</a></div>
+            <div class="header-card"><a href="../html/shop.html" id="shop">Shop</a></div>
+        </div>
+    </header>
+
+    <div class="shop-container">
+
+        <!-- BEGIN SINGLE ITEM BLOCK-->
+        <div class="souvenir-item" data-id="item001">
+            <div class="item-row-1">
+                <img src="../images/shop/dirty-bucket.png" alt="photo of a dirty bucket" title="Ideal for collectors!"
+                    onclick="openModal(this)">
+                <h3>Dirty Bucket</h3>
+            </div>
+            <div class="item-row-2">
+                <p>Recovered from beneath a studio bench, this sock bears the unmistakable imprint of a long firing
+                    cycle
+                    and a short attention span. The clay residue suggests a mid-range stoneware body, possibly cone 6.
+                    Ideal
+                    for collectors of textile-based sedimentation or those seeking a wearable relic of artistic neglect.
+                </p>
+            </div>
+            <div class="item-row-3">
+                <p><strong>Price:</strong> $42.99</p>
+                <button onclick="addToCart('item001')">Add Dirty Bucket to Cart</button>
+            </div>
+
+
+
+        </div>
+        <!-- END SINGLE ITEM BLOCK -->
+
+        <!-- BEGIN SINGLE ITEM BLOCK-->
+        <div class="souvenir-item" data-id="item002">
+            <div class="item-row-1">
+                <img src="../images/shop/dirty-sock.png" alt="photo of a dirty sock"
+                    title="May be used as a planter, a metaphor, or both!" onclick="openModal(this)">
+                <h3>Dirty Sock</h3>
+            </div>
+            <div class="item-row-2">
+                <p>An unwashed vessel of utilitarian despair, this bucket once held the slurry of ambition and
+                    overhydrated
+                    porcelain. Its surface is adorned with spontaneous splashes — a testament to the artist’s commitment
+                    to
+                    chaos and the absence of lids. May be used as a planter, a metaphor, or both.</p>
+            </div>
+            <div class="item-row-3">
+                <p><strong>Price:</strong> $87.99</p>
+                <button onclick="addToCart('item002')">Add Dirty Sock to Cart</button>
+            </div>
+
+
+        </div>
+        <!-- END SINGLE ITEM BLOCK -->
+
+        <!-- BEGIN SINGLE ITEM BLOCK-->
+        <div class="souvenir-item" data-id="item003">
+            <div class="item-row-1">
+                <img src="../images/shop/bills.jpg" alt="photo of a pile of electric bills"
+                    title="A curated selection of overdue electric bills" onclick="openModal(this)">
+                <h3>Electric Bills</h3>
+            </div>
+            <div class="item-row-2">
+                <p>A curated selection of overdue electric bills, each bearing the timestamp of a kiln cycle and the
+                    echo of
+                    financial ruin. Buyers may choose to acquire the stack outright or assume the moral burden of
+                    payment.
+                    Includes authentic late fees and a handwritten note reading “Art is the real currency.”</p>
+            </div>
+            <div class="item-row-3">
+                <p><strong>Price:</strong> $312.17</p>
+                <button onclick="addToCart('item003')">Add Electric Bills to Cart</button>
+            </div>
+
+
+        </div>
+
+        <!-- END SINGLE ITEM BLOCK -->
+        <div class="souvenir-item" data-id="item004">
+            <div class="item-row-1">
+                <img src="../images/shop/rags.png" alt="photo of a pile of dirty rags"
+                    title="Each rag bears the ghost of a glaze spill" onclick="openModal(this)">
+                <h3>Used Rags</h3>
+            </div>
+            <div class="item-row-2">
+                <p>A stratified mound of cotton and synthetic fibers, each rag bears the ghost of a glaze spill, a
+                    failed
+                    handle attachment, or a moment of quiet resignation. A tactile archive of the artist’s inability to
+                    clean up emotionally or physically. Some rags are stiff
+                    with dried slip; others are merely damp with regret.</p>
+            </div>
+            <div class="item-row-3">
+                <p><strong>Price:</strong> $13.99</p>
+                <button onclick="addToCart('item004')">Add Used Rags to Cart</button>
+            </div>
+
+
+
+        </div>
+        <!-- END SINGLE ITEM BLOCK -->
+
+    </div>
+    <footer id="footer-shop" class="row footer">
+        <p>This is a fictitious website created purely for academic purposes. The content on this site was
+            conceived by a human<br> and created by AI. The Images were created by AI and curated, edited,
+            reviewed, verified, validated, and augmented by a human. Collection descriptions were drafted by a human and
+            augmented by AI.</p>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img id="modal-image" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        function addToCart(itemId) {
+            alert("Added " + itemId + " to cart (functionality to come)");
+            // Future: Push to cart array
+        }
+
+        function openModal(imgElement) {
+            const modal = document.getElementById("modal");
+            const modalImage = document.getElementById("modal-image");
+            modalImage.src = imgElement.src;
+            modalImage.alt = imgElement.alt;
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+
+        // Optional: Close modal on outside click
+        window.onclick = function (event) {
+            const modal = document.getElementById("modal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+
+</html>

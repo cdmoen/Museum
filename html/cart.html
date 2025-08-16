@@ -5,6 +5,10 @@
     <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Chicle&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Fascinate&family=Freehand&family=Goblin+One&family=Grand+Hotel&family=Italiana&family=Lexend+Exa:wght@100..900&family=Limelight&family=Roboto:ital,wght@0,100..900;1,100..900&family=Spicy+Rice&family=Sulphur+Point:wght@300;400;700&family=Trade+Winds&family=Ultra&family=Wendy+One&family=Yellowtail&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Museum Cart</title>
     <style>
         /* minimal on-page styles for clarity; move to your CSS later if you want */
@@ -24,8 +28,8 @@
             font-style: italic;
         }
 
-        pre#summary {
-            background: #f8f8f8;
+        div#summary {
+            background: #a8a8a857;
             padding: 12px;
             font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         }
@@ -39,26 +43,38 @@
 </head>
 
 <body>
-    <header>
-        <h1>Shopping Cart</h1>
+    <header id="header-main">
+        <h1>Museum of Modern Ceramics</h1>
+        <div class="header-cards">
+            <div class="header-card"><a href="../index.html" id="home">Home</a></div>
+            <div class="header-card"><a href="staff.html" id="staff">Staff</a></div>
+            <div class="header-card"><a href="collections.html" id="collections">Collections</a></div>
+        </div>
+
     </header>
 
     <main>
         <!-- NEW CONTROLS (Cart page only) -->
         <div class="controls">
             <label><input type="checkbox" id="memberToggle"> Member Discount (15%)</label>
+
+
+
+
         </div>
 
         <!-- STATES & OUTPUT AREAS -->
         <div id="emptyMsg" class="empty" hidden>Your cart is empty.</div>
-        <div id="items" hidden>items print here</div>
-        <pre id="summary" hidden>summary prints here</pre>
+        <div id="items" class="cart-items" hidden></div>
+        <div id="summary-grid">
+            <div class="clear-cart"><button id="clearBtn">Clear Cart</button></div>
+            <div class="keep-shopping"><a href="shop.html">Keep Shopping</a></div>
+            <div id="summary" hidden></div>
+        </div>
+
 
         <!-- BASIC ACTIONS -->
-        <div class="actions">
-            <button id="clearBtn">Clear Cart</button>
-            <a href="shop.html">Keep Shopping</a>
-        </div>
+
     </main>
 
     <script>
@@ -118,81 +134,226 @@
             document.getElementById('memberToggle').checked = false;
             render();
         }
-        /* ================== END UTILITIES & CONSTANTS =========================== */
-
-
-
-
-        /*1) Load cart from readCart(); keep only items with qty > 0 and unitPrice > 0
-        
-        2) If empty → show #emptyMsg and hide #items and #summary
-        3) Build a text-only list in #items:
-              Example line: "2 × Celestial Inkstone               $29.90"
-              Include a small Remove button per line that calls removeItem(id)
-        4) Math (single-discount rule):
-              ItemTotal = sum(unitPrice * qty)
-              If Member checked AND Volume tier would apply → PROMPT user to choose:
-                "Only one discount may be applied. Type 'M' for Member or 'V' for Volume:"
-                Apply only the chosen one; set the other to $0.00
-              Else apply Member OR Volume (not both)
-              Subtotal = ItemTotal − AppliedDiscount + SHIPPING_RATE
-              TaxAmount = Subtotal * TAX_RATE
-              InvoiceTotal = Subtotal + TaxAmount
-        5) Write a single summary block to #summary (like commission):
-              Subtotal of Items
-              Volume Discount
-              Member Discount
-              Shipping
-              Subtotal (Taxable)
-              Tax Rate %   (as a percentage text)
-              Tax Amount $ (as currency)
-              Invoice Total
-        6) Recompute (call render()) after:
-              - Member checkbox change
-              - Clear Cart
-              - Remove line item
-   
-        KEEP IT SIMPLE: text output only, one render pass.
-     ========================================================================= */
 
         function render() {
             const itemsDiv = document.getElementById('items');
             const summaryPre = document.getElementById('summary');
             const emptyMsg = document.getElementById('emptyMsg');
             const isMember = document.getElementById('memberToggle').checked;
-            let cart = readCart().filter(product => product.qty > 0 && product.unitPrice > 0);
+            const cart = readCart().filter(product => product.qty > 0 && product.unitPrice > 0);  // Filter cart items
+            let itemTotal = 0;  // (unit price x quantity) of an item
+            let subtotalOfItems = 0;  // subtotal of all items before discounts applied
+            let volumeDiscount = 0;
+            let memberDiscount = 0;
+            let shippingCost = SHIPPING_RATE;
+            let subtotal = 0;  // final subtotal before tax is applied
+            let taxAmount = 0;  // dollar amount of tax owed
+            let invoiceTotal = 0;  // final total after tax
+            const lineOne = document.createElement("div");
+            const lineTwo = document.createElement("div");
+            const lineThree = document.createElement("div");
+            const lineFour = document.createElement("div");     // creating div element for each line in summary
+            const lineFive = document.createElement("div");     // so that it's easier to justify text
+            const lineSix = document.createElement("div");
+            const lineSeven = document.createElement("div");
+            const lineEight = document.createElement("div");
+            const lineStyles = {
+                display: "flex",
+                justifyContent: "space-between"    // variable to apply flex to every line
+            };
 
-            itemsDiv.innerHTML = "";
+            Object.assign(lineOne.style, lineStyles);
+            Object.assign(lineTwo.style, lineStyles);
+            Object.assign(lineThree.style, lineStyles);
+            Object.assign(lineFour.style, lineStyles);  // applying flex to every line using the variable
+            Object.assign(lineFive.style, lineStyles);
+            Object.assign(lineSix.style, lineStyles);
+            Object.assign(lineSeven.style, lineStyles);
+            Object.assign(lineEight.style, lineStyles);
+
+            itemsDiv.innerHTML = "";  // clearing the content of items upon every repaint so to avoid duplications
+
 
             cart.forEach((item) => {
-                const container = document.createElement("div");
-                itemsDiv.appendChild(container);
-                container.style.display = "flex";
-                container.style.justifyContent = "space-between";
-                const leftDiv = document.createElement("div");
-                const nameQty = document.createTextNode(`${item.qty} x ${item.name}`);
-                const deleteItem = document.createElement("button");
-                deleteItem.innerText = "Remove";
-                leftDiv.appendChild(nameQty);
-                leftDiv.appendChild(deleteItem);
-                const rightDiv = document.createElement("div");
-                const itemPrice = document.createTextNode(`Price: ${item.unitPrice}`);
-                rightDiv.appendChild(itemPrice);
-                container.appendChild(leftDiv);
-                container.appendChild(rightDiv);
+                const itemRow = document.createElement("div");   // iterating through the cart and creating grid items
+                Object.assign(itemRow.style, {
+                    display: "grid",
+                    gridTemplateColumns: "4fr 1fr 2fr 2fr",   // each item is given a row with 4 columns
+                    width: "100%",
+                    height: "100%",
+                    border: "1px solid black"
+                })
+
+                const namePhoto = document.createElement("div");  // first column contains tiny image and item name
+                const itemImg = document.createElement("img");
+                itemImg.src = `${item.image}`;
+                itemImg.style.maxWidth = "70px";
+                const itemNameNode = document.createTextNode(`${item.name}`);
+                namePhoto.append(itemImg, itemNameNode);
+                Object.assign(namePhoto.style, {
+                    gridColumn: "1/2",
+                    display: "flex",
+                    justifyContent: "left",      //adding styles to justify left and create a border
+                    alignItems: "end",
+                    padding: "10px",
+                    borderRight: "1px solid black"
+                })
+                const qtyColumn = document.createElement("div");
+                const itemQty = document.createTextNode(`Qty: ${item.qty}`);  // second column contains item quantity
+                qtyColumn.append(itemQty);
+                Object.assign(qtyColumn.style, {
+                    gridColumn: "2/3",
+                    display: "flex",
+                    justifyContent: "right",
+                    alignItems: "center",
+                    padding: "10px",
+                    borderRight: "1px solid black"
+                })
+                const priceColumn = document.createElement("div");
+                const unitPriceNode = document.createTextNode(`${money(item.unitPrice)}/ea`);  // third column contains unit price
+                priceColumn.append(unitPriceNode);
+                Object.assign(priceColumn.style, {
+                    gridColumn: "3/4",
+                    display: "flex",
+                    justifyContent: "right",
+                    alignItems: "center",
+                    padding: "10px",
+                    borderRight: "1px solid black"
+                })
+
+                itemTotal = item.unitPrice * item.qty;  // giving a value to itemTotal
+                subtotalOfItems += itemTotal;  // updating the subtotal for each item in the cart
+
+                const linePriceNode = document.createTextNode(`${money(itemTotal)}`);  // fourth column contains total item price (unitPrice x qty)
+                const totalColumn = document.createElement("div");
+                totalColumn.append(linePriceNode);
+                Object.assign(totalColumn.style, {
+                    gridColumn: "4/5",
+                    display: "flex",
+                    justifyContent: "right",
+                    alignItems: "center",
+                    padding: "10px",
+                    borderRight: "1px solid black"
+                })
+                const deleteItem = document.createElement("div");
+                const deleteButton = document.createElement("button");  // fifth row contains the 'remove' button
+                deleteButton.innerText = "Remove";
+                deleteItem.appendChild(deleteButton);
+                Object.assign(deleteItem.style, {
+                    gridColumn: "5/6",
+                    display: "flex",
+                    justifyContent: "right",
+                    alignItems: "center",
+                    padding: "10px",
+                    // border: "1px solid black"
+                })
+                itemsDiv.append(itemRow);  // appending the item row to the parent container itemsDiv
+
+                itemRow.append(namePhoto, qtyColumn, priceColumn, totalColumn, deleteItem);  // appending the child columns to the item row
                 deleteItem.addEventListener("click", () => {
-                    removeItem(item.id);
+                    summaryPre.innerHTML = "";
+                    removeItem(item.id);                   // creating an event listener for the remove button that clears the
+                    subtotalOfItems -= itemTotal;          // summary totals and subtracts removed item from subtotal
                 });
             }
-            )
+            );
 
-            if (cart.length > 0) {
-                itemsDiv.hidden = false;
+            volumeDiscount = (subtotalOfItems * volumeRate(subtotalOfItems));  // assigning value to the volume discount and member discount AFTER
+            memberDiscount = subtotalOfItems * MEMBER_DISCOUNT_RATE;           // items have been added to cart, but BEFORE summary totals are calculated
+            // and displayed (took me several headaches to realize this was necessary!)
+            if (isMember === true) {
+                if (volumeDiscount > 0) {
+                    let choice = prompt("Only one discount may be applied. Type 'M' for Member or 'V' for Volume:");
+                    if (choice.toLowerCase() === 'v') {
+                        summaryPre.innerHTML = "";
+                        memberDiscount = 0;
+                        volumeDiscount = (subtotalOfItems * volumeRate(subtotalOfItems));   // prompting user to choose which discount
+                    }
+                    else if (choice.toLowerCase() === 'm') {
+                        summaryPre.innerHTML = "";
+                        volumeDiscount = 0;
+                        memberDiscount = subtotalOfItems * MEMBER_DISCOUNT_RATE;
+                    }
+                    else {
+                        summaryPre.innerHTML = "";
+                    }
+                }
+                else {
+                    summaryPre.innerHTML = "";
+                    memberDiscount = subtotalOfItems * MEMBER_DISCOUNT_RATE;   // if there's no conflict with volume discount, just apply member discount
+                }
+            }
+            else if (isMember === false) {
+                summaryPre.innerHTML = "";
+                memberDiscount = 0;
+                volumeDiscount = (subtotalOfItems * volumeRate(subtotalOfItems));   // if the member discount box isn't checked, only apply volume discount
             }
 
+            if (cart.length > 0) {
+                itemsDiv.hidden = false;      // display items and summary if items in cart
+                summaryPre.hidden = false;
+                subtotal = (subtotalOfItems - volumeDiscount - memberDiscount + SHIPPING_RATE);   // give values to subtotal, tax amount, total invoice
+                taxAmount = subtotal * TAX_RATE;
+                invoiceTotal = subtotal + taxAmount;
 
+                //subtotal of items
+                const subtotalOfItemsLabel = document.createElement("span");    // Creating 2 spans for the contents each summary line.
+                subtotalOfItemsLabel.textContent = "Subtotal of Items:";        // One span is for the label and gets justified left, 
+                const subtotalOfItemsAmount = document.createElement("span");   // and the other is for the numbers, and gets justified right. 
+                subtotalOfItemsAmount.textContent = `${money(subtotalOfItems)}`;
+                lineOne.append(subtotalOfItemsLabel, subtotalOfItemsAmount);
+                //volume discount
+                const volumeDiscountLabel = document.createElement("span");  //label span
+                volumeDiscountLabel.textContent = "Volume Discount:";  //label text
+                const volumeDiscountAmount = document.createElement("span");  //numbers span
+                volumeDiscountAmount.textContent = `${money(volumeDiscount)}`;  //numbers text
+                lineTwo.append(volumeDiscountLabel, volumeDiscountAmount);  //appending spans to the appropriate line of the summary
+                //member discount
+                const memberDiscountLabel = document.createElement("span");
+                memberDiscountLabel.textContent = "Member Discount:";
+                const memberDiscountAmount = document.createElement("span");
+                memberDiscountAmount.textContent = `${money(memberDiscount)}`;
+                lineThree.append(memberDiscountLabel, memberDiscountAmount);
+                //shipping cost 
+                const shippingCostLabel = document.createElement("span");
+                shippingCostLabel.textContent = "Shipping Cost:";
+                const shippingCostAmount = document.createElement("span");
+                shippingCostAmount.textContent = `${money(SHIPPING_RATE)}`;
+                lineFour.append(shippingCostLabel, shippingCostAmount);
+                //subtotal (taxable)
+                const subtotalLabel = document.createElement("span");
+                subtotalLabel.textContent = "Subtotal (taxable):";
+                const subtotalAmount = document.createElement("span");
+                subtotalAmount.textContent = `${money(subtotal)}`;
+                lineFive.append(subtotalLabel, subtotalAmount);
+                //tax rate
+                const taxRateLabel = document.createElement("span");
+                taxRateLabel.textContent = "Tax Rate:";
+                const taxRateAmount = document.createElement("span");
+                taxRateAmount.textContent = ` ${(TAX_RATE * 100).toFixed(1)}%`;
+                lineSix.append(taxRateLabel, taxRateAmount);
+                //tax amount
+                const taxAmountLabel = document.createElement("span");
+                taxAmountLabel.textContent = "Tax Amount:";
+                const taxAmountAmount = document.createElement("span");
+                taxAmountAmount.textContent = `${money(taxAmount)}`;
+                lineSeven.append(taxAmountLabel, taxAmountAmount);
+                //invoice total
+                const invoiceTotalLabel = document.createElement("span");
+                invoiceTotalLabel.textContent = "Invoice Total:";
+                const invoiceTotalAmount = document.createElement("span");
+                invoiceTotalAmount.textContent = `${money(invoiceTotal)}`;
+                lineEight.append(invoiceTotalLabel, invoiceTotalAmount);
+                //appending all lines to the summary container
+                summaryPre.append(lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, lineSeven, lineEight);
+            }
+            else if (cart.length <= 0) {
+                emptyMsg.hidden = false;   // if cart is empty, display 'empty cart' message and hide summary
+                summaryPre.hidden = true;
+            }
 
-        }
+        };
+
 
 
 

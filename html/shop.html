@@ -28,11 +28,12 @@
             <div class="header-card"><a href="staff.html" id="staff">Staff</a></div>
             <div class="header-card"><a href="collections.html" id="collections">Collections</a></div>
             <div class="header-card"><a href="../html/shop.html" id="shop">Shop</a></div>
+            <button class="cart-button" onclick="location.href='cart.html'" id="viewCartBtn">View Cart</button>
+
         </div>
     </header>
 
     <div class="shop-container">
-
         <!-- BEGIN SINGLE ITEM BLOCK-->
         <div class="souvenir-item" data-id="item001">
             <div class="item-row-1">
@@ -50,10 +51,11 @@
             </div>
             <div class="item-row-3">
                 <p><strong>Price:</strong> $42.99</p>
-                <button onclick="addToCart('item001')">Add Dirty Bucket to Cart</button>
+                <span class="qty-badge" aria-live="polite"></span>
+                <button data-id="item001" data-name="Dirty Bucket" data-price="42.99"
+                    data-image="../images/shop/dirty-bucket.png" onclick="addToCart(this)">Add
+                    Dirty Bucket to Cart</button>
             </div>
-
-
 
         </div>
         <!-- END SINGLE ITEM BLOCK -->
@@ -74,7 +76,10 @@
             </div>
             <div class="item-row-3">
                 <p><strong>Price:</strong> $87.99</p>
-                <button onclick="addToCart('item002')">Add Dirty Sock to Cart</button>
+                <span class="qty-badge" aria-live="polite"></span>
+                <button data-id="item002" data-name="Dirty Sock" data-price="87.99"
+                    data-image="../images/shop/dirty-sock.png" onclick="addToCart(this)">Add
+                    Dirty Sock to Cart</button>
             </div>
 
 
@@ -97,7 +102,9 @@
             </div>
             <div class="item-row-3">
                 <p><strong>Price:</strong> $312.17</p>
-                <button onclick="addToCart('item003')">Add Electric Bills to Cart</button>
+                <span class="qty-badge" aria-live="polite"></span>
+                <button data-id="item003" data-name="Electric Bills" data-price="312.17"
+                    data-image="../images/shop/bills.jpg" onclick="addToCart(this)">Add Electric Bills to Cart</button>
             </div>
 
 
@@ -119,7 +126,11 @@
             </div>
             <div class="item-row-3">
                 <p><strong>Price:</strong> $13.99</p>
-                <button onclick="addToCart('item004')">Add Used Rags to Cart</button>
+                <span class="qty-badge" aria-live="polite"></span>
+                <button data-id="item004" data-name="Used Rags" data-price="13.99" onclick="addToCart(this)"
+                    data-image="../images/shop/rags.png">
+                    Add Used Rags to Cart
+                </button>
             </div>
 
 
@@ -144,9 +155,50 @@
     </div>
 
     <script>
-        function addToCart(itemId) {
-            alert("Added " + itemId + " to cart (functionality to come)");
-            // Future: Push to cart array
+        //this key links the shop to the cart
+
+        const CART_KEY = 'museumCartV1';
+
+
+        // This function reads the Cart information and write it to JSON  
+        function readCart() {
+            try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+            catch { return []; }
+        }
+
+        function writeCart(cart) {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        }
+
+        /*This function is called by the addToCart button the first part reads the dataset contined in the buttons and asssigns the values to variables */
+
+        function addToCart(btn) {
+            const id = btn.dataset.id;
+            const name = btn.dataset.name;
+            const unitPrice = Number(btn.dataset.price);
+            const image = btn.dataset.image;
+
+            /* This part puts all of the individual items and puts them into an object called cart and writes it to LocalStorage   */
+
+            let cart = readCart();
+            const idx = cart.findIndex(it => it.id === id);
+            if (idx >= 0) {
+                cart[idx].qty += 1;
+            } else {
+                cart.push({ id, name, unitPrice, qty: 1, image });
+            }
+            writeCart(cart);
+
+            // Update the item card's qty badge
+
+            const card = btn.closest('.souvenir-item');
+            if (card) {
+                const badge = card.querySelector('.qty-badge');
+                if (badge) {
+                    const item = cart.find(it => it.id === id);
+                    badge.textContent = item ? `Qty: ${item.qty}` : '';
+                }
+            }
         }
 
         function openModal(imgElement) {
